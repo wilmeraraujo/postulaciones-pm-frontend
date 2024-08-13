@@ -1,0 +1,87 @@
+<mat-card>
+  <h1 class="alinear">Montos máximos de pagos por prestador que tienen soporte de registros</h1>
+  <h2 class="alinear">fecha radicación 01-01-2024 hasta 23-07-2024 - fecha de prestacion a partir de 01-01-2024</h2>
+  <mat-card-header>
+    <div>
+      <mat-form-field hintLabel="Buscar prestador" appearance="fill">
+        <mat-label>Buscar prestador</mat-label>
+        <input matInput #input (keyup)="search(input.value)">
+      </mat-form-field>
+    </div>
+    <div class="totals-container">
+      <p><strong>Total pago nivel factura: </strong>{{ getTotalFactura() | currency:'USD':'symbol':'1.0-0' }}</p>
+      <p><strong>Total pago nivel Suministro: </strong>{{ getTotalSuministro() | currency:'USD':'symbol':'1.0-0' }}</p>
+    </div>
+  </mat-card-header>
+  <!--<mat-divider></mat-divider>
+  <mat-grid-list cols="2" rowHeight="50px">
+    <mat-grid-tile
+        [colspan]="1"
+        [rowspan]="1"
+        [style.background]="'lightgray'">
+        <p><strong>Total pago nivel factura: </strong>{{ getTotalFactura() | currency:'USD':'symbol':'1.0-0' }}</p>
+      </mat-grid-tile>
+      <mat-grid-tile
+      [colspan]="1"
+      [rowspan]="1"
+      [style.background]="'lightblue'">
+      <p><strong>Total pago nivel Suministro: </strong>{{ getTotalSuministro() | currency:'USD':'symbol':'1.0-0' }}</p>
+    </mat-grid-tile>
+  </mat-grid-list>-->
+  <mat-divider></mat-divider>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" class="mat-cell">
+      <!--id column-->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> N°</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+      <!--id column-->
+      <ng-container matColumnDef="nit">
+        <th mat-header-cell *matHeaderCellDef> Nit</th>
+        <td mat-cell *matCellDef="let element">{{ element.nit }}</td>
+      </ng-container>
+      <!--description column-->
+      <ng-container matColumnDef="razonSocial">
+        <th mat-header-cell *matHeaderCellDef> Razon social</th>
+        <td mat-cell *matCellDef="let element">{{ element.razonSocial }}</td>
+      </ng-container>
+      <!--habilitado column-->
+      <ng-container matColumnDef="habilitado">
+        <th mat-header-cell *matHeaderCellDef> Habilitado</th>
+        <td mat-cell *matCellDef="let element">{{ element.habilitado }}</td>
+      </ng-container>
+      <!--valor valorPosiblePago por facturacolumn-->
+      <ng-container matColumnDef="valorPosiblePagoFactura">
+        <th mat-header-cell *matHeaderCellDef> Valor máximo nivel Factura</th>
+        <td mat-cell *matCellDef="let element">{{ element.valorPosiblePagoFactura | currency:'USD':'symbol':'1.0-0'   }}</td>
+      </ng-container>
+      <!--valor valorPosiblePago por suministro-->
+      <ng-container matColumnDef="valorPosiblePagoSuministro">
+        <th mat-header-cell *matHeaderCellDef> Valor máximo nivel suministro</th>
+        <td mat-cell *matCellDef="let element">{{ element.valorPosiblePagoSuministro | currency:'USD':'symbol':'1.0-0' }}</td>
+      </ng-container>
+      <!--valor valor pagar por factura-->
+      <ng-container matColumnDef="valorPagarFactura">
+        <th mat-header-cell *matHeaderCellDef> Valor a pagar nivel factura</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field style="width: 100%; height: 60px;" appearance="fill">
+            <input matInput type="number" [disabled]="!isAdmin" [(ngModel)]="element.valorPagarFactura" (blur)="guardarCambios(element)">
+          </mat-form-field>
+        </td>
+      </ng-container>
+      <!--valor valor pagar por suministro-->
+      <ng-container matColumnDef="valorPagarSuministro">
+        <th mat-header-cell *matHeaderCellDef> Valor a pagar nivel suministro</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field style="width: 100%; height: 60px;" appearance="fill">
+            <input matInput type="number" [disabled]="!isAdmin" [(ngModel)]="element.valorPagarSuministro" (blur)="guardarCambios(element)">
+          </mat-form-field>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns:displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[10,20,50,100]" showFirstLastButtons></mat-paginator>
+  </mat-card-content>
+</mat-card>

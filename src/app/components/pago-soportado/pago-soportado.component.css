@@ -1,0 +1,48 @@
+table {
+  width: 100%;
+}
+
+ul li {
+  list-style: none;
+}
+
+.alinear {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.rightButtonAdd {
+  margin-left: auto;
+}
+
+mat-form-field {
+  width: 100%;
+  max-width: 300px; /* Ajusta según sea necesario */
+}
+
+.mat-cell:nth-child(1),
+.mat-header-cell:nth-child(1) {
+  flex: 0 0 6%;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header-flex > div {
+  margin: 8px;
+}
+
+.totals-container {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.totals-container p {
+  margin: 0;
+  font-size: 16px;
+}
